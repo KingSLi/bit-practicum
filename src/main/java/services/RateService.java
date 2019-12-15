@@ -24,6 +24,8 @@ public class RateService {
 
         k = CalculateScaling(rates, weather);
         b = CalculateShift(rates, weather);
+
+
     }
 
     public Double predict(double value) throws IOException {
