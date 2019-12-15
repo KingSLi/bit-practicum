@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import services.RateService;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -16,7 +17,7 @@ public class PredictionController {
     private RateService rateService;
 
     @RequestMapping(path="/predict", method = POST)
-    public String GetPredicrt(int temperature) throws IOException {
+    public String GetPredicrt(int temperature) throws IOException, ParseException {
         return "with temperature " + temperature + ", Dollar will be - " + rateService.predict(temperature);
     }
 }
