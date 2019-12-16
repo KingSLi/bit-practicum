@@ -41,9 +41,15 @@ public class WeatherService {
         return weathersList;
     }
 
+    @Transactional
     public double GetCurrentTemperature() throws JsonProcessingException {
         long curTime = System.currentTimeMillis() / 1000L;
+        Optional<Weather> data = weatherCrudRepository.findByTimestamp(curTime);
+        if (data.isPresent()) {
+            return data.get().getTemperature();
+        }
         WeatherResponse weather = parseResponse(GetResponse("" + curTime));
+        weatherCrudRepository.save(new Weather(curTime, weather.currently.temperature));
         return weather.currently.temperature;
     }
 
