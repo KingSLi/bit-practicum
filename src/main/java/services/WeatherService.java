@@ -2,7 +2,6 @@ package services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.util.Pair;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +13,7 @@ import services.dao.entity.Weather;
 import services.dao.repository.WeatherCrudRepository;
 import services.weather.response.structure.WeatherResponse;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,16 +25,16 @@ public class WeatherService {
     private WeatherCrudRepository weatherCrudRepository;
 
     @Transactional
-    public List<Pair<Long, Double>> GetWeatherByListDates(List<Long> dates) throws JsonProcessingException {
-        List<Pair<Long, Double>> weathersList = new ArrayList<>();
+    public List<AbstractMap.SimpleEntry <Long, Double>> GetWeatherByListDates(List<Long> dates) throws JsonProcessingException {
+        List<AbstractMap.SimpleEntry <Long, Double>> weathersList = new ArrayList<>();
         for (Long date : dates) {
             Optional<Weather> data = weatherCrudRepository.findByTimestamp(date);
             if (data.isPresent()) {
-                weathersList.add(new Pair<>(date, data.get().getTemperature()));
+                weathersList.add(new AbstractMap.SimpleEntry <>(date, data.get().getTemperature()));
                 continue;
             }
             WeatherResponse gettedWeather = parseResponse(GetResponse("" + date));
-            weathersList.add(new Pair<>(date, GetDailyTemp(gettedWeather)));
+            weathersList.add(new AbstractMap.SimpleEntry<>(date, GetDailyTemp(gettedWeather)));
             weatherCrudRepository.save(new Weather(date, GetDailyTemp(gettedWeather)));
         }
         System.out.println(weathersList.toString());

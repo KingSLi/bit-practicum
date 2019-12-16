@@ -1,6 +1,5 @@
 package services;
 
-import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +8,7 @@ import services.dao.repository.MoneyCrudRepository;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,19 +27,19 @@ public class RateService {
     private Double b = null;
 
     private void fit() throws IOException, ParseException {
-        List<Pair<Long, Double>> ratesWithDate = rbcService.GetRatesWithDates("30");
+        List<AbstractMap.SimpleEntry <Long, Double>> ratesWithDate = rbcService.GetRatesWithDates("30");
 
         List<Double> rates = new ArrayList<>();
         List<Long> dates = new ArrayList<>();
 
-        for (Pair<Long, Double> date2rate : ratesWithDate) {
+        for (AbstractMap.SimpleEntry <Long, Double> date2rate : ratesWithDate) {
             dates.add(date2rate.getKey());
             rates.add(date2rate.getValue());
         }
-        List<Pair<Long, Double>> weatherWithDate = weatherService.GetWeatherByListDates(dates);
+        List<AbstractMap.SimpleEntry <Long, Double>> weatherWithDate = weatherService.GetWeatherByListDates(dates);
 
         List<Double> weather = new ArrayList<>();
-        for (Pair<Long, Double> date2weather : weatherWithDate) {
+        for (AbstractMap.SimpleEntry <Long, Double> date2weather : weatherWithDate) {
             weather.add(date2weather.getValue());
         }
 

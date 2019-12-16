@@ -37,6 +37,9 @@ repositories {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+repositories { jcenter() }
+dependencies { testImplementation 'org.mockito:mockito-core:2.7.22' }
+
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile 'org.json:json:20171018'
