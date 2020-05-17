@@ -1,5 +1,6 @@
 package services;
 
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +27,7 @@ public class RateService {
     private Double k = null;
     private Double b = null;
 
-    private void fit() throws IOException, ParseException {
+    private void fit() throws IOException, ParseException, JSONException {
         List<AbstractMap.SimpleEntry <Long, Double>> ratesWithDate = rbcService.GetRatesWithDates("30");
 
         List<Double> rates = new ArrayList<>();
@@ -48,7 +49,7 @@ public class RateService {
     }
 
     @Transactional
-    public Double predict(double temperature) throws IOException, ParseException {
+    public Double predict(double temperature) throws IOException, ParseException, JSONException {
         if (!(k != null && b != null)) {
             fit();
         }

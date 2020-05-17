@@ -1,6 +1,6 @@
 package services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import org.json.JSONException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import services.dao.entity.Weather;
 import services.dao.repository.WeatherCrudRepository;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -30,7 +31,7 @@ public class RequestToDBTest {
     private WeatherCrudRepository weatherCrudRepository;
 
     @Test
-    public void RequestTest() throws JsonProcessingException {
+    public void RequestTest() throws IOException, JSONException {
         Weather weather = new Weather(12L,  34.0);
         Optional<Weather> optionalWeather = Optional.of(weather);
         Mockito.when(weatherCrudRepository.findByTimestamp(any())).thenReturn(optionalWeather);

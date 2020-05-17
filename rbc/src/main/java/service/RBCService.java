@@ -1,15 +1,16 @@
-package services;
+package service;
 
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@Component
+@SpringBootApplication
 public class RBCService {
 
     private static String fixData = "USD000000TOD,2019-09-24,63.735,63.7875,63.6,63.7825,492878000,63.6845\n" +
@@ -84,5 +85,10 @@ public class RBCService {
             max = Math.max(rate, max);
         }
         return max;
+    }
+
+
+    public static void main(String[] args) {
+        SpringApplication.run(RBCService.class, args);
     }
 }

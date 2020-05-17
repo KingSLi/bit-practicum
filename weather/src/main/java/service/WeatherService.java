@@ -1,16 +1,15 @@
-package services;
+package service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
-import services.dao.entity.Weather;
-import services.dao.repository.WeatherCrudRepository;
-import services.weather.response.structure.WeatherResponse;
+import service.structure.WeatherResponse;
 
 import java.io.IOException;
 import java.util.AbstractMap;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@SpringBootApplication
 public class WeatherService {
 
     @Autowired
@@ -76,6 +75,11 @@ public class WeatherService {
     private WeatherResponse parseResponse(String response) throws JSONException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(response, WeatherResponse.class);
+    }
+
+
+    public static void main(String[] args) {
+        SpringApplication.run(WeatherService.class, args);
     }
 
 }

@@ -1,0 +1,16 @@
+version: '3'
+services:
+  rate:
+    build: ./rate/
+    ports:
+      - "8092:8092"
+
+  weather:
+    build: ./weather/
+    ports:
+      - "8090:8090"
+
+  rbc:
+    build: ./rbc/
+    ports:
+      - "8091:8091"
