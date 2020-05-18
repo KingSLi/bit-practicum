@@ -1,0 +1,33 @@
+---
+-
+  hosts: rbcserver
+  remote_user: mftiedu
+  tasks:
+    -
+      shell: "mkdir -p edu/polyasnkiy-mn"
+      name: "Create directory for deploying"
+    -
+      copy: "src=../rbc/target/rbc-1.0-SNAPSHOT.jar dest=edu/polyasnkiy-mn/ owner=mftiedu mode=7777"
+      name: "copy rbc service"
+    -
+      copy: "src=../rate/target/rate-1.0-SNAPSHOT.jar dest=edu/polyasnkiy-mn/ owner=mftiedu mode=7777"
+      name: "copy predict service"
+    -
+      shell: "nohup java -jar edu/polyasnkiy-mn/rbc-1.0-SNAPSHOT.jar  -Dserver.port=8091 &"
+      name: "run rbc service"
+    -
+      shell: "nohup java -jar edu/polyasnkiy-mn/rate-1.0-SNAPSHOT.jar -Dserver.port=8092 &"
+      name: "run predict service"
+-
+  hosts: weatherserver
+  remote_user: edumfti
+  tasks:
+    -
+      shell: "mkdir -p edu/polyasnkiy-mn"
+      name: "Create directory for deploying"
+    -
+      copy: "src=../weather/target/weather-1.0-SNAPSHOT.jar dest=edu/polyasnkiy-mn/ owner=edumfti mode=7777"
+      name: "copy weather service"
+    -
+      shell: "nohup java -jar edu/polyasnkiy-mn/weather-1.0-SNAPSHOT.jar  -Dserver.port=8090 &"
+      name: "run weather service"

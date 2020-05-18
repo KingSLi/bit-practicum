@@ -1,0 +1,16 @@
+---
+-
+  hosts: rbcserver
+  remote_user: mftiedu
+  tasks:
+    -
+      shell: "ps aux | grep mftiedu"
+      name: "Create directory for deploying"
+
+-
+  hosts: weatherserver
+  remote_user: edumfti
+  tasks:
+    -
+      shell: "ps aux | grep edumfti"
+      name: "Create directory for deploying"
