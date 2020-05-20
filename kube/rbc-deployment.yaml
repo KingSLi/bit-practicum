@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rbc-kube
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: rbc-kube
+  template:
+    metadata:
+      name: rbc-kube
+      labels:
+        app: rbc-kube
+    spec:
+      containers:
+        - name: rbc-kube
+          image: rbc-docker
+          imagePullPolicy: IfNotPresent
